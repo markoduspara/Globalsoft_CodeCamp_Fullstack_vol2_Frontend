@@ -1,13 +1,10 @@
-function LoginButton() {
-    
-    return (
-        <div>
-            <button className="submitButton" type="submit"></button>
-        </div>
-    
-    );
-    }
-    
-    
-    export default LoginButton
-    
+import './LoginButton.css';
+function LoginButton({ type }) {
+  return (
+    <div>
+      <button className={type} type="submit"></button>
+    </div>
+  );
+}
+
+export default LoginButton;
