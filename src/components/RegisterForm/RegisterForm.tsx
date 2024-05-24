@@ -1,44 +1,46 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import InputField from '../InputField/InputField';
 import LoginButton from '../LoginButton/LoginButton';
 import { LoginContext } from '../../context/Context';
 
-function LoginForm() {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
-  const context = useContext(LoginContext);
+function RegisterForm() {
   const usernameObject = {
-    id: 'username',
+    //id: 'username',
     placeholder: 'neki text',
     className: 'inputType-username',
   };
   const passwordObject = {
-    id: 'password',
+    //id: 'password',
     placeholder: 'neki password text',
     className: 'inputType-password',
     type: 'password',
   };
-
+  const context = useContext(LoginContext);
   const handleSubmit = (event) => {
-    console.log(event);
-
     event.preventDefault();
-
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    fetch('http://localhost:3000/user', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: 'test', userPassword: 'testpassword' }),
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        context.setIsLoggedIn(true);
+        if (data.username === 'test') {
+          console.log('da');
+          context.setIsLoggedIn(true);
+        } else {
+          console.log('ne');
+          context.setIsLoggedIn(false);
+        }
       })
       .catch((error) => {
-        console.error(error);
-        context.setIsLoggedIn(false);
+        console.log(error);
       });
-    //context.setIsLoggedIn(true);
   };
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -50,4 +52,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;

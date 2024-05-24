@@ -1,17 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import InputField from './components/InputField/InputField';
 import LoginForm from './components/LoginForm/LoginForm';
+import { LoginContext } from './context/Context';
+import RegisterForm from './components/RegisterForm/RegisterForm';
 
 function App() {
   const [count, setCount] = useState(0);
-  useEffect(() => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loginContext = createContext(LoginContext);
+  console.log(isLoggedIn);
+  /*   const c = 3; */
+
+  /* useEffect(() => {
     // Update the document title using the browser API
     document.title = `You clicked ${count} times`;
-  });
-  return (
-    <LoginForm />
+  }, []); */
+
+  return !isLoggedIn ? (
+    <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      <RegisterForm />
+    </LoginContext.Provider>
+  ) : (
+    <div>
+      <p>neka game forma</p>
+    </div>
   );
 }
 

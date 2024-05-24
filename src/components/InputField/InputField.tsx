@@ -3,10 +3,7 @@ import './InputField.css';
 function InputField({ type }) {
   return (
     <div>
-      <input
-        className={`inputType-${type.className}`}
-        placeholder={type.placeholder}
-      ></input>
+      <input {...type}></input>
     </div>
   );
 }
