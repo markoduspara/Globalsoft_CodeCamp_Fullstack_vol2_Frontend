@@ -22,14 +22,11 @@ function LoginForm() {
   };
 
   const handleSubmit = (event) => {
-    console.log(event);
-
     event.preventDefault();
 
     fetch('https://jsonplaceholder.typicode.com/todos/1')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         context.setIsLoggedIn(true);
       })
       .catch((error) => {

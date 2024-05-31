@@ -10,13 +10,6 @@ function App() {
   const [count, setCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const loginContext = createContext(LoginContext);
-  console.log(isLoggedIn);
-  /*   const c = 3; */
-
-  /* useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-  }, []); */
 
   return !isLoggedIn ? (
     <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
