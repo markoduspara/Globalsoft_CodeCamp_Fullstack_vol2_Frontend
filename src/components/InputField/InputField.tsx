@@ -1,12 +1,9 @@
 import './InputField.css';
 
-function InputField({ type }) {
+function InputField({ type, onChange }) {
   return (
     <div>
-      <input
-        className={`inputType-${type.className}`}
-        placeholder={type.placeholder}
-      ></input>
+      <input onChange={onChange} {...type}></input>
     </div>
   );
 }

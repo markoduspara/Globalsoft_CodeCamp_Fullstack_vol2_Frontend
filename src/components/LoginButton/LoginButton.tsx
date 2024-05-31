@@ -1,8 +1,10 @@
 import './LoginButton.css';
-function LoginButton({ type }) {
+function LoginButton({ type, children, disabled }) {
   return (
     <div>
-      <button className={type} type="submit"></button>
+      <button disabled={disabled} className={type} type="submit">
+        {children}
+      </button>
     </div>
   );
 }
