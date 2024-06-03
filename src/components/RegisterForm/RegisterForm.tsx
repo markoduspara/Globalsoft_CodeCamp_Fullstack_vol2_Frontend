@@ -44,9 +44,9 @@ function RegisterForm() {
       })
       .then((data: { id: number }) => {
         if (data.id) {
-          context.setIsLoggedIn(true);
+          context.setShowView('game');
         } else {
-          context.setIsLoggedIn(false);
+          context.setShowView('register');
         }
       })
       .catch((error) => {
