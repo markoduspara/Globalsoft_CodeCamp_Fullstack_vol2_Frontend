@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useContext, useEffect, useState } from 'react';
+
 import InputField from '../InputField/InputField';
 import LoginButton from '../LoginButton/LoginButton';
 import { LoginContext } from '../../context/Context';
@@ -9,11 +9,7 @@ function RegisterForm() {
     username: '',
     userPassword: '',
   });
-  const [loginFormData, setLoginFormData] = useState({
-    username: '',
-    userPassword: '',
-  });
-  const context = useContext(LoginContext);
+
   const usernameObject = {
     placeholder: 'Username',
     className: 'inputType-username',
@@ -26,12 +22,7 @@ function RegisterForm() {
     name: 'userPassword',
   };
   const context = useContext(LoginContext);
-  const handleChange = (event) => {
-    setLoginFormData({
-      ...loginFormData,
-      [event.target.name]: event.target.value,
-    });
-  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
