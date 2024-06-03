@@ -1,50 +1,71 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import InputField from '../InputField/InputField';
 import LoginButton from '../LoginButton/LoginButton';
 import { LoginContext } from '../../context/Context';
 
-function LoginForm() {
-  const [state, setState] = useState({
-    email: '',
-    password: '',
+function RegisterForm() {
+  const [loginFormData, setLoginFormData] = useState({
+    username: '',
+    userPassword: '',
   });
-  const context = useContext(LoginContext);
+  const [isFormValid, setIsFormValid] = useState(false);
   const usernameObject = {
-    id: 'username',
-    placeholder: 'neki text',
+    placeholder: 'Username',
     className: 'inputType-username',
+    name: 'username',
   };
   const passwordObject = {
-    id: 'password',
-    placeholder: 'neki password text',
+    placeholder: 'Password',
     className: 'inputType-password',
     type: 'password',
+    name: 'userPassword',
   };
-
+  const context = useContext(LoginContext);
+  const handleChange = (event) => {
+    setLoginFormData({
+      ...loginFormData,
+      [event.target.name]: event.target.value,
+    });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then((response) => response.json())
-      .then((data) => {
-        context.setIsLoggedIn(true);
+    fetch(`http://localhost:3000/user/login?username=${loginFormData.username}&password=${loginFormData.userPassword}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data: { id: number }) => {
+        if (data.id) {
+          context.setIsLoggedIn(true);
+        } else {
+          context.setIsLoggedIn(false);
+        }
       })
       .catch((error) => {
-        console.error(error);
-        context.setIsLoggedIn(false);
+        console.log(error);
       });
-    //context.setIsLoggedIn(true);
   };
-
+  useEffect(() => {
+    setIsFormValid(
+      !!loginFormData.username && !!loginFormData.userPassword
+    );
+  }, [loginFormData]);
   return (
-    <div>
+    <div className='loginForm'>
       <form onSubmit={handleSubmit}>
-        <InputField type={usernameObject}></InputField>
-        <InputField type={passwordObject}></InputField>
-        <LoginButton type="submitButton"></LoginButton>
+        <InputField type={usernameObject} onChange={handleChange}></InputField>
+        <InputField type={passwordObject} onChange={handleChange}></InputField>
+        <LoginButton disabled={!isFormValid} type="loginButton">
+          Login
+        </LoginButton>
       </form>
     </div>
   );
 }
 
-export default LoginForm;
+export default RegisterForm;
