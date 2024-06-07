@@ -3,7 +3,7 @@ import Row from '../UI/Row/Row';
 import Square from '../UI/Square/Square';
 import { cloneDeep } from 'lodash';
 
-const gridCount = 3;
+const mockGridCount = 4;
 const mockGridMatrix = [
   [
     { index: 1, value: '' },
@@ -21,29 +21,41 @@ const mockGridMatrix = [
     { index: 9, value: '' },
   ],
 ];
+const createGridMatrix = (gridCount) => {
+  let tempGridMatrix: Array<Array<{ index: number; value: string }>> = [];
+  for (let i = 0; i < gridCount; i++) {
+    let tempArray: Array<{ index: number; value: string }> = [];
+    for (let j = 0; j < gridCount; j++) {
+      tempArray.push({ index: i * gridCount + j + 1, value: '' });
+    }
+    console.log('tempArray', tempArray);
+    tempGridMatrix.push(tempArray);
+  }
+  return tempGridMatrix;
+};
 //let gridCount : number = Number(prompt("Grid Size?"));
 function GameGrid() {
-  const [gridMatrix, setGridMatrix] = useState(mockGridMatrix);
+  const [backendArray, setBackendArray] = useState([]);
 
-  useEffect(() => {
-    console.log();
-  }, []);
+  const [gridMatrix, setGridMatrix] = useState(createGridMatrix(mockGridCount));
 
-  /*   const buttonClick = ({ squareIndex, rowIndex }) => {
-    console.log(squareIndex, rowIndex);
-    let newGridMatrix = gridMatrix;
-    newGridMatrix[rowIndex][squareIndex].value = 'X';
-    setGridMatrix([...newGridMatrix]);
-  }; */
+  const [gridValue, setGridValue] = useState('X');
+
   const buttonClick = ({ squareIndex, rowIndex }) => {
     console.log(squareIndex, rowIndex);
     setGridMatrix((currentState) => {
       let newGridMatrix = [...currentState];
-      newGridMatrix[rowIndex][squareIndex].value = 'X';
+      newGridMatrix[rowIndex][squareIndex].value = gridValue;
       return newGridMatrix;
     });
   };
-  console.log(gridMatrix);
+
+  useEffect(() => {
+    setGridValue((currentValue) => (currentValue === 'X' ? 'O' : 'X'));
+  }, [gridMatrix]);
+
+  console.log('gridMatrix', gridMatrix);
+  console.log('gridValue', gridValue);
   return (
     <div>
       {gridMatrix.map((row, rowIndex) => (
