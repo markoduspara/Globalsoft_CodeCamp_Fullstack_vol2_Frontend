@@ -12,13 +12,13 @@ function App() {
   console.log(showView);
   return (
     <LoginContext.Provider value={{ showView, setShowView }}>
-      {showView === 'login' ? (
+      {/*   {showView === 'login' ? (
         <LoginForm />
       ) : showView === 'register' ? (
         <RegisterForm />
-      ) : (
-        <GameGrid></GameGrid>
-      )}
+      ) : ( */}
+      <GameGrid></GameGrid>
+      {/*    )} */}
     </LoginContext.Provider>
   );
 }
