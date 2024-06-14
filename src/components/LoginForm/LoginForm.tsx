@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import InputField from '../InputField/InputField';
 import LoginButton from '../LoginButton/LoginButton';
 import { LoginContext } from '../../context/Context';
+import GameGrid from '../GameGrid/GameGrid';
 
 function RegisterForm() {
   const [loginFormData, setLoginFormData] = useState({
@@ -31,7 +32,7 @@ function RegisterForm() {
     )
       .then((response) => response.json())
       .then((data) => {
-        context.setShowView('game');
+        context.setShowView('seat');
       })
       .catch((error) => {
         console.error(error);

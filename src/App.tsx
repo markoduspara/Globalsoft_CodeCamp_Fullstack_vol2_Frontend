@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import { LoginContext } from './context/Context';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import GameGrid from './components/GameGrid/GameGrid';
+import SeatForm from './components/Game/SeatForm';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,13 +13,15 @@ function App() {
   console.log(showView);
   return (
     <LoginContext.Provider value={{ showView, setShowView }}>
-      {/*   {showView === 'login' ? (
+      {showView === 'login' ? (
         <LoginForm />
       ) : showView === 'register' ? (
         <RegisterForm />
-      ) : ( */}
-      <GameGrid></GameGrid>
-      {/*    )} */}
+      ) : showView === 'seat' ? (
+        <SeatForm />
+      ) : (
+        <GameGrid></GameGrid>
+      )} 
     </LoginContext.Provider>
   );
 }

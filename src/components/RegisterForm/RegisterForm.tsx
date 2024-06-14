@@ -44,7 +44,7 @@ function RegisterForm() {
       })
       .then((data: { id: number }) => {
         if (data.id) {
-          context.setShowView('game');
+          context.setShowView('seat');
         } else {
           context.setShowView('register');
         }
